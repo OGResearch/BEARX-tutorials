@@ -9,8 +9,6 @@ clear classes
 close all
 rehash path
 
-addpath ../bearing -end
-addpath ../bear -end
 
 import separable.*
 
@@ -113,13 +111,13 @@ disp(instantZerosTbx)
 %% Identify a SVAR using exact zero restrictions
 
 
-identInstantZeros = identifier.InstantZeros(instantZerosTbx);
+identInstantZeros = identifier.InstantZeros(table=instantZerosTbx);
 
 disp(identInstantZeros);
 
 modelS1 = Structural( ...
     reducedForm=modelR, ...
-    identifier=identInstantZeros
+    identifier=identInstantZeros ...
 );
 
 disp(modelS1);
@@ -266,9 +264,9 @@ initStart = datex.shift(fcastStart, -modelS.Meta.Order);
 
 dataTbx{datex("2015-Q1"), "US_YER"} = -1.5;
 dataTbx{datex("2015-Q4"), "EA_HICSA"} = 5.5;
-
-
-dataTbx{:, "Oil"} = inputTbx{end, "Oil"};
+dataTbx{fcastSpan, "Oil"} = 90;
+% keyboard
+% dataTbx{:, "Oil"} = inputTbx{end, "Oil"};
 
 dataTbx %#ok<NOPTS>
 planTbx %#ok<NOPTS>
@@ -282,7 +280,7 @@ planTbx{datex.q(2015,4), "EA_HICSA"} = "EA_DEM EA_SUP";
 planTbx %#ok<NOPTS>
 
 rng(0);
-cfcastTbx1 = modelS.conditionalForecast(fcastSpan, conditions=dataTbx, plan=[]);
+cfcastTbx1 = modelS.conditionalForecast(fcastSpan, conditions=dataTbx, plan=[], exogenousFrom = "conditions" );
 
 cfcastPrctilesTbx1 = tablex.apply(cfcastTbx1, prctileFunc);
 

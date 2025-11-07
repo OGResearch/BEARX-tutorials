@@ -6,9 +6,6 @@ close all
 clear classes
 rehash path
 
-addpath ../bearing
-addpath ../bear
-
 import cross.*
 
 
@@ -73,7 +70,7 @@ info6 = modelR6.presample(10);
 
 %% Indentify a SVAR using Cholesky (without reordering)
 
-identChol = identifier.Cholesky(order=[]);
+identChol = identifier.Cholesky(ordering=[]);
 
 modelS5 = Structural(reducedForm=modelR5, identifier=identChol);
 modelS5.initialize();
