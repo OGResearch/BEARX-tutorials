@@ -280,12 +280,12 @@ planTbx{datex.q(2015,4), "EA_HICSA"} = "EA_DEM EA_SUP";
 planTbx %#ok<NOPTS>
 
 rng(0);
-cfcastTbx1 = modelS.conditionalForecast(fcastSpan, conditions=dataTbx, plan=[], exogenousFrom = "conditions" );
+cfcastTbx1 = modelS.conditionalForecast(fcastSpan, conditions=dataTbx, plan=[], exogenousFrom = "conditions");
 
 cfcastPrctilesTbx1 = tablex.apply(cfcastTbx1, prctileFunc);
 
 rng(0);
-cfcastTbx2 = modelS.conditionalForecast(fcastSpan, conditions=dataTbx, plan=planTbx);
+cfcastTbx2 = modelS.conditionalForecast(fcastSpan, conditions=dataTbx, plan=planTbx, exogenousFrom = "conditions");
 cfcastPrctilesTbx2 = tablex.apply(cfcastTbx2, prctileFunc);
 
 
